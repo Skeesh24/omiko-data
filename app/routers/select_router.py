@@ -1,11 +1,11 @@
 from fastapi import APIRouter
 
-from app.models.fastapi_models import firebase_filter
+from app.models.fastapi_models import FilterRequestModel
 from fastapi.params import Depends
 from fireo.database import Database
 
 from app.database.firebase import get_db
-from app.models.fastapi_models import firebase_filter
+from app.models.fastapi_models import FilterRequestModel
 
 
 select_router = APIRouter(prefix="/select", tags=["select", "get"])
@@ -16,7 +16,7 @@ async def select(
     tablename: str,
     limit: int = 5,
     offset: int = 0,
-    where: firebase_filter = None,
+    where: FilterRequestModel = None,
     db: Database = Depends(get_db),
 ) -> list[dict]:
     table = db.conn.collection(tablename)
