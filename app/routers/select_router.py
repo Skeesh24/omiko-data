@@ -11,7 +11,7 @@ from app.models.fastapi_models import firebase_filter
 select_router = APIRouter(prefix="/select", tags=["select", "get"])
 
 
-@select_router.post("/{tablename}")
+@select_router.get("/{tablename}")
 async def select(
     tablename: str,
     limit: int = 5,
