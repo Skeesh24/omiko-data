@@ -17,7 +17,7 @@ insert_router = APIRouter(prefix="/insert", tags=["insert", "post"])
 async def insert(tablename: str, data: dict = Body(), db: Database = Depends(get_db)):
     try:
         UserRequestModel(**data)
-    except Exception as e:
-        raise HTTPException(status_code=codes.bad_request, detail=str(e))
+    except Exception as e:                                # TODO clear e
+        raise HTTPException(status_code=codes.bad_request, detail=str(e))  
     db.conn.collection(tablename).add(data)
     return UserResponseModel(**data)

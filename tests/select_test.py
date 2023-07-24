@@ -3,7 +3,7 @@ from requests.status_codes import codes
 from settings import Settings
 
 
-def test_select_query():
+def test_select_user():
     response = get(
         Settings.url + "/select/user",
         params={"limit": 2, "offset": 0},

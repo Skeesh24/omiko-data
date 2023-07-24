@@ -3,7 +3,7 @@ from requests.status_codes import codes
 from settings import Settings
 
 
-def test_select_query():
+def test_insert_user():
     response = post(
         Settings.url + "/insert/user",
         json={
