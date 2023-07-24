@@ -5,7 +5,7 @@ from fireo.database import Database
 from fastapi.exceptions import HTTPException
 
 from app.database.firebase import get_db
-from app.models.fastapi_models import UserRequestModel, UserResponseModel
+from app.models.validation import UserRequestModel, UserResponseModel
 
 
 insert_router = APIRouter(prefix="/insert", tags=["insert", "post"])

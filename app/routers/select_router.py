@@ -1,11 +1,11 @@
 from fastapi import APIRouter
 
-from app.models.fastapi_models import FilterRequestModel
+from app.models.validation import FilterRequestModel
 from fastapi.params import Depends
 from fireo.database import Database
 
 from app.database.firebase import get_db
-from app.models.fastapi_models import FilterRequestModel
+from app.models.validation import FilterRequestModel
 
 
 select_router = APIRouter(prefix="/select", tags=["select", "get"])
