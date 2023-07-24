@@ -11,6 +11,7 @@ class Product(Model):
     name = TextField()
     short_description = TextField()
     description = TextField()
+    category = TextField()
     price = NumberField()
 
 
@@ -32,3 +33,9 @@ class Cabinet(Model):
     orders = ListField(nested_field=TextField)
     city = TextField()
     phone = TextField()
+
+
+class Order(Model):
+    user = TextField()
+    products = ListField(nested_field=TextField)
+    price = NumberField()
