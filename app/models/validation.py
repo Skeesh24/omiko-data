@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import Any
+from typing import Any, List
 
 
 class FilterRequestModel(BaseModel):
@@ -18,8 +18,66 @@ class UserResponseModel(BaseModel):
 
 
 class ProductRequestModel(BaseModel):
-    pass
+    name: str
+    description: str
+    short_description: str
+    price: float
+    category: str
 
 
 class ProductResponseModel(BaseModel):
-    pass
+    name: str
+    price: float
+    category: str
+
+
+class OrderRequestModel(BaseModel):
+    user: str
+    products: List[str]
+    price: float
+
+
+class OrderResponseModel(BaseModel):
+    user: str
+    products: List[str]
+    price: float
+
+
+class ProductCategoryRequestModel(BaseModel):
+    name: str
+    product_count: int
+
+
+class ProductCategoryResponseModel(BaseModel):
+    name: str
+    product_count: int
+
+
+class OfficeRequestModel(BaseModel):
+    city: str
+    address: str
+    phone: str
+    email: str
+
+
+class OfficeResponseModel(BaseModel):
+    city: str
+    address: str
+    phone: str
+    email: str
+
+
+class CabinetRequestModel(BaseModel):
+    cart: List[str]
+    favourites: List[str]
+    orders: List[str]
+    city: str
+    phone: str
+
+
+class CabinetResponseModel(BaseModel):
+    cart: List[str]
+    favourites: List[str]
+    orders: List[str]
+    city: str
+    phone: str
