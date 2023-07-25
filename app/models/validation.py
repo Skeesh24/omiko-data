@@ -18,8 +18,14 @@ class UserResponseModel(BaseModel):
 
 
 class ProductRequestModel(BaseModel):
-    pass
+    name: str
+    description: str
+    short_description: str
+    price: float
+    category: str
 
 
 class ProductResponseModel(BaseModel):
-    pass
+    name: str
+    price: float
+    category: str

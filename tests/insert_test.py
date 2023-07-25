@@ -33,7 +33,7 @@ tuples = [
         {
             "name": "test",
             "description": "test",
-            "short_decription": "test",
+            "short_description": "test",
             "price": 24,
             "category": "test",
         },
