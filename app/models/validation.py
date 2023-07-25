@@ -29,3 +29,11 @@ class ProductResponseModel(BaseModel):
     name: str
     price: float
     category: str
+
+
+class OrderRequestModel(BaseModel):
+    pass
+
+
+class OrderResponseModel(BaseModel):
+    pass
