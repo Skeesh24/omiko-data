@@ -49,9 +49,10 @@ async def insert(data: dict = Body(), db: Database = Depends(get_db)):
     "/order", status_code=codes.created, response_model=OrderResponseModel
 )
 async def insert(data: dict = Body(), db: Database = Depends(get_db)):
-    new_order: OrderResponseModel = type_validation_check(
-        OrderRequestModel, OrderResponseModel, data
-    )
+    new_order: OrderRequestModel = type_validation_check(OrderRequestModel, data)
 
+    response: OrderResponseModel = type_validation_check(OrderResponseModel, data)
+
+    # replace this connection with a repository interface
     db.conn.collection("order").add(new_order.dict(exclude_defaults=True))
-    return new_order
+    return response
