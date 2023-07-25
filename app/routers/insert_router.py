@@ -36,12 +36,13 @@ async def insert(data: dict = Body(), db: Database = Depends(get_db)):
     "/product", status_code=codes.created, response_model=ProductResponseModel
 )
 async def insert(data: dict = Body(), db: Database = Depends(get_db)):
-    new_product: ProductResponseModel = type_validation_check(
-        ProductRequestModel, ProductResponseModel, data
-    )
+    new_product: ProductRequestModel = type_validation_check(ProductRequestModel, data)
 
+    response: ProductResponseModel = type_validation_check(ProductResponseModel, data)
+
+    # replace this connection with a repository interface
     db.conn.collection("product").add(new_product.dict(exclude_defaults=True))
-    return new_product
+    return response
 
 
 @insert_router.post(
