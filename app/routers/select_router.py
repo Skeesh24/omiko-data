@@ -19,8 +19,9 @@ async def select(
     where: FilterRequestModel = None,
     db: Database = Depends(get_db),
 ) -> list[dict]:
+    # replace this connection with a repository call
     table = db.conn.collection(tablename)
     query = table.limit(limit).offset(offset)
     if where:
-        query = query.where(**where.__dict__)
+        query = query.where(**where.dict(exclude_defaults=True))
     return [x.to_dict() for x in query.get()]
