@@ -6,12 +6,12 @@ from fastapi.exceptions import HTTPException
 
 from app.database.firebase import get_db
 from app.models.validation import (
+    UserRequestModel,
+    UserResponseModel,
+    ProductRequestModel,
+    ProductResponseModel,
     OrderRequestModel,
     OrderResponseModel,
-    ProductRequestModel,
-    ProductResponseModel,
-    ProductRequestModel,
-    ProductResponseModel,
 )
 from app.classes.functions import type_validation_check
 
@@ -20,11 +20,11 @@ insert_router = APIRouter(prefix="/insert", tags=["insert", "post"])
 
 
 @insert_router.post(
-    "/user", status_code=codes.created, response_model=ProductResponseModel
+    "/user", status_code=codes.created, response_model=UserResponseModel
 )
 async def insert(data: dict = Body(), db: Database = Depends(get_db)):
-    new_user: ProductResponseModel = type_validation_check(
-        ProductRequestModel, ProductResponseModel, data
+    new_user: UserResponseModel = type_validation_check(
+        UserRequestModel, UserResponseModel, data
     )
 
     db.conn.collection("user").add(new_user.dict(exclude_defaults=True))
@@ -47,9 +47,9 @@ async def insert(data: dict = Body(), db: Database = Depends(get_db)):
     "/order", status_code=codes.created, response_model=OrderResponseModel
 )
 async def insert(data: dict = Body(), db: Database = Depends(get_db)):
-    try:
-        OrderRequestModel(**data)
-    except Exception as e:  # TODO clear e
-        raise HTTPException(status_code=codes.bad_request, detail=str(e))
-    db.conn.collection("order").add(data)
-    return OrderResponseModel(**data)
+    new_order: OrderResponseModel = type_validation_check(
+        OrderRequestModel, OrderResponseModel, data
+    )
+
+    db.conn.collection("order").add(new_order.dict(exclude_defaults=True))
+    return new_order

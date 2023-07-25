@@ -38,14 +38,14 @@ tuples = [
             "category": "test",
         },
     ),
-    # (
-    #     "/order",
-    #     {
-    #         "user": "bratok2@gmail.com",
-    #         "products": ["test"],
-    #         "price": 24,
-    #     },
-    # ),
+    (
+        "/order",
+        {
+            "user": "bratok2@gmail.com",
+            "products": ["test"],
+            "price": 24,
+        },
+    ),
     # ("/product_category", {"name": "test", "product_count": 24}),
     # (
     #     "/office",

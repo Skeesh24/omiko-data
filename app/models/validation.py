@@ -8,12 +8,12 @@ class FilterRequestModel(BaseModel):
     value: Any
 
 
-class ProductRequestModel(BaseModel):
+class UserRequestModel(BaseModel):
     email: str
     password: str
 
 
-class ProductResponseModel(BaseModel):
+class UserResponseModel(BaseModel):
     email: str
 
 
@@ -33,11 +33,11 @@ class ProductResponseModel(BaseModel):
 
 class OrderRequestModel(BaseModel):
     user: str
-    products: List[float]
+    products: List[str]
     price: float
 
 
 class OrderResponseModel(BaseModel):
     user: str
-    product: List[str]
+    products: List[str]
     price: float
