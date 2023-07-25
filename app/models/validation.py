@@ -15,3 +15,11 @@ class UserRequestModel(BaseModel):
 
 class UserResponseModel(BaseModel):
     email: str
+
+
+class ProductRequestModel(BaseModel):
+    pass
+
+
+class ProductResponseModel(BaseModel):
+    pass
