@@ -46,7 +46,7 @@ tuples = [
             "price": 24,
         },
     ),
-    # ("/product_category", {"name": "test", "product_count": 24}),
+    ("/product_category", {"name": "test", "product_count": 24}),
     # (
     #     "/office",
     #     {

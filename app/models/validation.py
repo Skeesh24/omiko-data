@@ -41,3 +41,8 @@ class OrderResponseModel(BaseModel):
     user: str
     products: List[str]
     price: float
+
+
+class ProductCategoryRequestModel(BaseModel):
+    name: str
+    product_count: int
