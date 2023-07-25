@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import Any
+from typing import Any, List
 
 
 class FilterRequestModel(BaseModel):
@@ -33,11 +33,11 @@ class ProductResponseModel(BaseModel):
 
 class OrderRequestModel(BaseModel):
     user: str
-    products: list[str]
+    products: List[float]
     price: float
 
 
 class OrderResponseModel(BaseModel):
     user: str
-    product: list[str]
+    product: List[str]
     price: float

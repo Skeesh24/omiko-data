@@ -23,10 +23,12 @@ insert_router = APIRouter(prefix="/insert", tags=["insert", "post"])
     "/user", status_code=codes.created, response_model=UserResponseModel
 )
 async def insert(data: dict = Body(), db: Database = Depends(get_db)):
-    new_user: UserRequestModel = type_validation_check(UserRequestModel, data)
+    new_user: UserResponseModel = type_validation_check(
+        UserRequestModel, UserResponseModel, data
+    )
 
-    db.conn.collection("user").add(data)
-    return UserResponseModel(**data)
+    db.conn.collection("user").add(new_user.dict(exclude_defaults=True))
+    return new_user
 
 
 @insert_router.post(
