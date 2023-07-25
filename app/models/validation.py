@@ -32,8 +32,12 @@ class ProductResponseModel(BaseModel):
 
 
 class OrderRequestModel(BaseModel):
-    pass
+    user: str
+    products: list[str]
+    price: float
 
 
 class OrderResponseModel(BaseModel):
-    pass
+    user: str
+    product: list[str]
+    price: float
