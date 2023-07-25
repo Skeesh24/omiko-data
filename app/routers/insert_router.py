@@ -6,6 +6,8 @@ from fastapi.exceptions import HTTPException
 
 from app.database.firebase import get_db
 from app.models.validation import (
+    ProductCategoryRequestModel,
+    ProductCategoryResponseModel,
     UserRequestModel,
     UserResponseModel,
     ProductRequestModel,
@@ -55,4 +57,23 @@ async def insert(data: dict = Body(), db: Database = Depends(get_db)):
 
     # replace this connection with a repository interface
     db.conn.collection("order").add(new_order.dict(exclude_defaults=True))
+    return response
+
+
+@insert_router.post(
+    "/product_category",
+    status_code=codes.created,
+    response_model=ProductCategoryResponseModel,
+)
+async def insert(data: dict = Body(), db: Database = Depends(get_db)):
+    new_category: ProductCategoryRequestModel = type_validation_check(
+        ProductCategoryRequestModel, data
+    )
+
+    response: ProductCategoryResponseModel = type_validation_check(
+        ProductCategoryResponseModel, data
+    )
+
+    # replace this connection with a repository interface
+    db.conn.collection("product_category").add(new_category.dict(exclude_defaults=True))
     return response
