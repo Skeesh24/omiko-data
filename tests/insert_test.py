@@ -24,7 +24,7 @@ tuples = [
     (
         "/user",
         {
-            "username": "bratok2@gmail.com",
+            "email": "bratok2@gmail.com",
             "password": "AESRGEFfnpsiyhPYBEFncwpnsSUkm",
         },
     ),
