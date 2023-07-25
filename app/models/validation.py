@@ -65,3 +65,19 @@ class OfficeResponseModel(BaseModel):
     address: str
     phone: str
     email: str
+
+
+class CabinetRequestModel(BaseModel):
+    cart: List[str]
+    favourites: List[str]
+    orders: List[str]
+    city: str
+    phone: str
+
+
+class CabinetResponseModel(BaseModel):
+    cart: List[str]
+    favourites: List[str]
+    orders: List[str]
+    city: str
+    phone: str

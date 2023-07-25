@@ -56,16 +56,16 @@ tuples = [
             "email": "test",
         },
     ),
-    # (
-    #     "/cabinet",
-    #     {
-    #         "cart": ["test"],
-    #         "favourites": ["test"],
-    #         "orders": ["test"],
-    #         "city": "test",
-    #         "phone": "test",
-    #     },
-    # ),
+    (
+        "/cabinet",
+        {
+            "cart": ["test"],
+            "favourites": ["test"],
+            "orders": ["test"],
+            "city": "test",
+            "phone": "test",
+        },
+    ),
 ]
 
 
