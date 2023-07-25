@@ -46,3 +46,8 @@ class OrderResponseModel(BaseModel):
 class ProductCategoryRequestModel(BaseModel):
     name: str
     product_count: int
+
+
+class ProductCategoryResponseModel(BaseModel):
+    name: str
+    product_count: int
