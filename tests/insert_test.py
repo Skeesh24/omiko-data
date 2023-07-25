@@ -47,15 +47,15 @@ tuples = [
         },
     ),
     ("/product_category", {"name": "test", "product_count": 24}),
-    # (
-    #     "/office",
-    #     {
-    #         "city": "test",
-    #         "address": "test",
-    #         "phone": "test",
-    #         "email": "test",
-    #     },
-    # ),
+    (
+        "/office",
+        {
+            "city": "test",
+            "address": "test",
+            "phone": "test",
+            "email": "test",
+        },
+    ),
     # (
     #     "/cabinet",
     #     {

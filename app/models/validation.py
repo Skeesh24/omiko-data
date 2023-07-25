@@ -51,3 +51,17 @@ class ProductCategoryRequestModel(BaseModel):
 class ProductCategoryResponseModel(BaseModel):
     name: str
     product_count: int
+
+
+class OfficeRequestModel(BaseModel):
+    city: str
+    address: str
+    phone: str
+    email: str
+
+
+class OfficeResponseModel(BaseModel):
+    city: str
+    address: str
+    phone: str
+    email: str
