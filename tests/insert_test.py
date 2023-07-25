@@ -7,37 +7,37 @@ import pytest
 route = Settings.url + Settings.post
 
 
-def test_insert_user():
-    response = post(
-        route + "/user",
-        json={
-            "email": "bratok2@gmail.com",
-            "password": "AESRGEFfnpsiyhPYBEFncwpnsSUkm",
-        },
-    )
-    assert response.status_code == codes.created
-    assert response.json() is not None
-    assert len(response.json()) >= 1
-
-
-# tuples = [
-#     (
-#         "/user",
-#         {
+# def test_insert_user():
+#     response = post(
+#         route + "/user",
+#         json={
 #             "email": "bratok2@gmail.com",
 #             "password": "AESRGEFfnpsiyhPYBEFncwpnsSUkm",
 #         },
-#     ),
-    # (
-    #     "/product",
-    #     {
-    #         "name": "test",
-    #         "description": "test",
-    #         "short_description": "test",
-    #         "price": 24,
-    #         "category": "test",
-    #     },
-    # ),
+#     )
+#     assert response.status_code == codes.created
+#     assert response.json() is not None
+#     assert len(response.json()) >= 1
+
+
+tuples = [
+    (
+        "/user",
+        {
+            "email": "bratok2@gmail.com",
+            "password": "AESRGEFfnpsiyhPYBEFncwpnsSUkm",
+        },
+    ),
+    (
+        "/product",
+        {
+            "name": "test",
+            "description": "test",
+            "short_description": "test",
+            "price": 24,
+            "category": "test",
+        },
+    ),
     # (
     #     "/order",
     #     {
@@ -66,18 +66,18 @@ def test_insert_user():
     #         "phone": "test",
     #     },
     # ),
-# ]
+]
 
 
-# @pytest.mark.parametrize(
-#     "prefix, dictionary",
-#     ("/user, {email: 'bratok2@gmail.com', password: 'AESRGEFKFVHwlvsgDSv}"),
-# )
-# def test_insert_in_models(prefix, dictionary):
-#     response = post(
-#         route + prefix,
-#         json=dictionary,
-#     )
-#     assert response.status_code == codes.created
-#     assert response.json() is not None
-#     assert len(response.json()) >= 1
+@pytest.mark.parametrize(
+    "prefix, dictionary",
+    tuples,
+)
+def test_insert_in_models(prefix, dictionary):
+    response = post(
+        route + prefix,
+        json=dictionary,
+    )
+    assert response.status_code == codes.created
+    assert response.json() is not None
+    assert len(response.json()) >= 1

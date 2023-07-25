@@ -8,12 +8,12 @@ class FilterRequestModel(BaseModel):
     value: Any
 
 
-class UserRequestModel(BaseModel):
+class ProductRequestModel(BaseModel):
     email: str
     password: str
 
 
-class UserResponseModel(BaseModel):
+class ProductResponseModel(BaseModel):
     email: str
 
 
