@@ -14,24 +14,24 @@ insert_router = APIRouter(prefix="/insert", tags=["insert", "post"])
 @insert_router.post(
     "/user", status_code=codes.created, response_model=UserResponseModel
 )
-async def insert(tablename: str, data: dict = Body(), db: Database = Depends(get_db)):
+async def insert(data: dict = Body(), db: Database = Depends(get_db)):
     try:
         UserRequestModel(**data)
     except Exception as e:                                # TODO clear e
         raise HTTPException(status_code=codes.bad_request, detail=str(e))  
-    db.conn.collection(tablename).add(data)
+    db.conn.collection("user").add(data)
     return UserResponseModel(**data)
 
 
-@insert_router.post(#tablename delete
+@insert_router.post(
     "/product", status_code=codes.created, response_model=ProductResponseModel
 )
-async def insert(tablename: str, data: dict = Body(), db: Database = Depends(get_db)):
+async def insert(data: dict = Body(), db: Database = Depends(get_db)):
     try:
         ProductRequestModel(**data)
     except Exception as e:                                # TODO clear e
         raise HTTPException(status_code=codes.bad_request, detail=str(e))  
-    db.conn.collection(tablename).add(data)
+    db.conn.collection("product").add(data)
     return ProductResponseModel(**data)
 
 
