@@ -4,7 +4,7 @@ from requests.status_codes import codes
 from settings import Settings
 
 
-ROUTE = Settings.url + Settings.get
+ROUTE = Settings.URL + Settings.GET
 DEFAULT_QUERY_PARAMS = {"limit": 1, "offset": 0}
 default_body_compare_param = {"field_path": "email", "op_string": "==", "value": "test"}
 
