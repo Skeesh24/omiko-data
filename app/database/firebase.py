@@ -9,6 +9,6 @@ def get_db():
     from fireo import db
 
     try:
-        yield db
+        return db
     finally:
         db.conn.close()
