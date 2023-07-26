@@ -3,7 +3,7 @@ from abc import abstractclassmethod, ABC
 
 class IRepository(ABC):
     @abstractclassmethod
-    def get_by_id(self, id: int):
+    def get(self, document_id: str):
         pass
 
     @abstractclassmethod
@@ -15,13 +15,9 @@ class IRepository(ABC):
         pass
 
     @abstractclassmethod
-    def update(self, id: int, element):
+    def update(self, document_id: str, element):
         pass
 
     @abstractclassmethod
-    def remove_by_id(self, id: int):
-        pass
-
-    @abstractclassmethod
-    def remove(self, element):
+    def remove(self, document_id: str):
         pass
