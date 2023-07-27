@@ -1,14 +1,13 @@
-from dataclasses import dataclass
+from enum import Enum
 
 
-@dataclass
-class fields:
+class fields(Enum):
     ID: str = "id"
     EMAIL: str = "email"
     PASS: str = "password"
 
 
-class signs:
+class signs(Enum):
     EQ: str = "=="
     PLUS: str = "+"
     MINUS: str = "-"
