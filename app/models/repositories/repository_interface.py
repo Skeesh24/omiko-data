@@ -1,13 +1,15 @@
 from abc import abstractclassmethod, ABC
 
+from app.models.validation import FilterRequestModel
+
 
 class IRepository(ABC):
     @abstractclassmethod
-    def get(self, document_id: str):
+    def get(self, limit: int, offset: int, document_id: str, where: FilterRequestModel):
         pass
 
     @abstractclassmethod
-    def get_all(self):
+    def get_all(self, where: FilterRequestModel):
         pass
 
     @abstractclassmethod
