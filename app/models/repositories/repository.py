@@ -1,9 +1,9 @@
+from typing import Generic, List, TypeVar
 from fireo.models import Model
 from app.database.firebase import get_db
 from app.models.repositories.fields import fields
 from app.models.repositories.repository_interface import IRepository
 from fastapi.exceptions import HTTPException
-from fireo.database import Database
 
 
 _T = TypeVar("_T", bound=Model)
