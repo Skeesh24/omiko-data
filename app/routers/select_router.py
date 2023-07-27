@@ -1,27 +1,45 @@
+from typing import List
 from fastapi import APIRouter
+from app.database.entities import Product, User
+from app.models.repositories.repository import FirebaseRepository
 
-from app.models.validation import FilterRequestModel
+from app.models.validation import (
+    FilterRequestModel,
+    ProductResponseModel,
+    UserResponseModel,
+)
 from fastapi.params import Depends
-from fireo.database import Database
 
-from app.database.firebase import get_db
+from app.classes.dependencies import (
+    get_product_repository,
+    get_user_repository,
+)
 from app.models.validation import FilterRequestModel
 
 
-select_router = APIRouter(prefix="/select", tags=["select", "get"])
+select_router = APIRouter(prefix="/select", tags=["select"])
 
 
-@select_router.get("/{tablename}")
+@select_router.get("/user", response_model=List[UserResponseModel])
 async def select(
-    tablename: str,
     limit: int = 5,
     offset: int = 0,
     where: FilterRequestModel = None,
-    db: Database = Depends(get_db),
-) -> list[dict]:
-    # replace this connection with a repository call
-    table = db.conn.collection(tablename)
-    query = table.limit(limit).offset(offset)
-    if where:
-        query = query.where(**where.dict(exclude_defaults=True))
-    return [x.to_dict() for x in query.get()]
+    db: FirebaseRepository[User] = Depends(get_user_repository),
+) -> list[UserResponseModel]:
+    all = db.get_all()
+
+    return [UserResponseModel(**x.to_dict()) for x in all]
+
+
+@select_router.get("/product", response_model=ProductResponseModel)
+async def select_product(
+    limit: int = 5,
+    offset: int = 0,
+    document_id: str = "",
+    where: FilterRequestModel = None,
+    db: FirebaseRepository[Product] = Depends(get_product_repository),
+) -> ProductResponseModel:
+    element = db.get(document_id=document_id)
+
+    return element
