@@ -22,7 +22,7 @@ from app.models.validation import (
 from app.classes.functions import type_validation_check
 
 
-insert_router = APIRouter(prefix="/insert", tags=["insert", "post"])
+insert_router = APIRouter(prefix="/insert", tags=["insert"])
 
 
 @insert_router.post(
