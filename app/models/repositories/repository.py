@@ -1,15 +1,17 @@
+from fireo.models import Model
 from app.database.firebase import get_db
 from app.models.repositories.fields import signs, fields
 from app.models.repositories.functions import type_asscociation
 from app.models.repositories.repository_interface import IRepository
-from typing import Generic, Iterable, List, TypeVar
+from typing import Generic, Iterable, List, TypeVar, get_args
 from fastapi.exceptions import HTTPException
+from fireo.database import Database
 
 
-_T = TypeVar("_T")
+_T = TypeVar("_T", bound=Model)
 
 
-class FirebaseRepository(Generic(_T), IRepository):
+class FirebaseRepository(Generic[_T], IRepository):
 
     """
     ## This repository provides access to the firebase
@@ -22,9 +24,13 @@ class FirebaseRepository(Generic(_T), IRepository):
     """
 
     def __init__(self) -> None:  # TODO debug
+        pass
+
+    def connect(self):
         self.db = get_db()
-        self.collection_name = type_asscociation(_T)
-        self.collection = self.db.conn.collection(self.collection_name)
+        type = self.__orig_class__.__args__[0]
+
+        return self.db.conn.collection(type.collection_name)
 
     def get(self, document_id: str) -> _T | None:
         """
@@ -35,7 +41,8 @@ class FirebaseRepository(Generic(_T), IRepository):
         ### returns document of generic type or None if no document
         """
 
-        element: _T = self.collection.where(fields.ID, signs.EQ, id).get()
+        element = self.connect().document(document_id=document_id)
+        # element = self.connect().where(fields.ID, signs.EQ, document_id).get()
         return element
 
     def get_all(self) -> List[_T] | None:  # TODO debug
@@ -45,8 +52,8 @@ class FirebaseRepository(Generic(_T), IRepository):
         ### returns list of documents or None if no documents
         """
 
-        elements = self.collection.get()
-        assert elements is Iterable, "is not a list"  # is that correct?
+        elements: List = self.connect().get()
+        # assert elements is list
         if len(elements) == 0:
             return None
         return elements
@@ -78,7 +85,7 @@ class FirebaseRepository(Generic(_T), IRepository):
         try:
             self.remove_by_id(document_id)
             dict = element.to_dict(exclude_defaults=True)
-            dict[fields.ID] = id
+            dict[fields.ID] = document_id
             self.collection.add(dict)
 
         except Exception as e:
