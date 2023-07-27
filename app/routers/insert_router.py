@@ -2,7 +2,6 @@ from fastapi import APIRouter, Body
 from fastapi.params import Depends
 from requests.status_codes import codes
 from fireo.database import Database
-from fastapi.exceptions import HTTPException
 
 from app.database.firebase import get_db
 from app.models.validation import (

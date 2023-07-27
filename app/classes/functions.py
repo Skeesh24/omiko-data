@@ -1,6 +1,6 @@
 from typing import Any, Callable, TypeVar
 from fastapi.exceptions import HTTPException
-from pydantic import BaseModel, ValidationError
+from pydantic import ValidationError
 from requests import codes
 
 

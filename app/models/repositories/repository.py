@@ -1,9 +1,7 @@
 from fireo.models import Model
 from app.database.firebase import get_db
-from app.models.repositories.fields import signs, fields
-from app.models.repositories.functions import type_asscociation
+from app.models.repositories.fields import fields
 from app.models.repositories.repository_interface import IRepository
-from typing import Generic, Iterable, List, TypeVar, get_args
 from fastapi.exceptions import HTTPException
 from fireo.database import Database
 
