@@ -55,16 +55,6 @@ class FirebaseRepository(Generic[_T], IRepository):
         # element = self.connect().where(fields.ID, signs.EQ, document_id).get()
         return element.get()
 
-    def get_all(self) -> List[_T] | None:  # TODO debug
-        """
-        ## Gets all documents from the generic collection
-
-        ### returns list of documents
-        """
-
-        elements: List[_T] = self.connect().get()
-        return elements
-
     def add(self, element: _T) -> None:
         """
         ## Adds a document in the generic collection
