@@ -6,11 +6,9 @@ from app.models.validation import FilterRequestModel
 
 class IRepository(ABC):
     @abstractclassmethod
-    def get(self, limit: int, offset: int, document_id: str, where: FilterRequestModel) -> Any:
-        pass
-
-    @abstractclassmethod
-    def get_all(self, where: FilterRequestModel) -> list:
+    def get(
+        self, limit: int, offset: int, document_id: str, where: FilterRequestModel
+    ) -> Any:
         pass
 
     @abstractclassmethod
