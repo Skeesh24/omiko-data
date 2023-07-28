@@ -45,3 +45,12 @@ def get_office_repository():
         return repo
     finally:
         pass
+
+
+def get_cabinet_repository():
+    repo = FirebaseRepository[Office]()
+
+    try:
+        return repo
+    finally:
+        pass

@@ -1,27 +1,27 @@
 from typing import List
 from fastapi import APIRouter
-from app.database.entities import Product, User
-from app.models.repositories.repository import FirebaseRepository
 from app.models.repositories.repository_interface import IRepository
 
 from app.models.validation import (
+    CabinetResponseModel,
     FilterRequestModel,
     OfficeResponseModel,
     OrderResponseModel,
     ProductCategoryResponseModel,
     ProductResponseModel,
     UserResponseModel,
+    FilterRequestModel,
 )
 from fastapi.params import Depends
 
 from app.classes.dependencies import (
+    get_cabinet_repository,
     get_office_repository,
     get_order_repository,
     get_product_category_repository,
     get_product_repository,
     get_user_repository,
 )
-from app.models.validation import FilterRequestModel
 
 
 select_router = APIRouter(prefix="/select", tags=["select"])
@@ -101,4 +101,19 @@ async def select_products(
 
     return (
         [OfficeResponseModel(**of._data) for of in offices] if len(offices) > 0 else []
+    )
+
+
+@select_router.get("/cabinet", response_model=List[CabinetResponseModel])
+async def select_products(
+    limit: int = 5,
+    offset: int = 0,
+    document_id: str = "",
+    where: FilterRequestModel = None,
+    db: IRepository = Depends(get_cabinet_repository),
+) -> List[CabinetResponseModel]:
+    offices = db.get(limit=limit, offset=offset, document_id=document_id, where=where)
+
+    return (
+        [CabinetResponseModel(**of._data) for of in offices] if len(offices) > 0 else []
     )
