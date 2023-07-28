@@ -46,11 +46,9 @@ class FirebaseRepository(Generic[_T], IRepository):
         """
         element = self.connect()
         if document_id == "":
-            element = (
-                element.limit(limit)
-                .offset(offset)
-                .where(**where.dict(exclude_defaults=True))
-            )
+            element = element.limit(limit).offset(offset)
+            if where:
+                element = element.where(**where.dict(exclude_defaults=True))
         else:
             element = element.document(document_id=document_id)
 
