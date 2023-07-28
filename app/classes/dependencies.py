@@ -1,4 +1,4 @@
-from app.database.entities import Office, Order, Product, Product_Category, User
+from app.database.entities import Cabinet, Office, Order, Product, Product_Category, User
 from app.models.repositories.repository import FirebaseRepository
 
 
@@ -48,7 +48,7 @@ def get_office_repository():
 
 
 def get_cabinet_repository():
-    repo = FirebaseRepository[Office]()
+    repo = FirebaseRepository[Cabinet]()
 
     try:
         return repo

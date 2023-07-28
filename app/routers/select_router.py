@@ -100,7 +100,9 @@ async def select_products(
     offices = db.get(limit=limit, offset=offset, document_id=document_id, where=where)
 
     return (
-        [OfficeResponseModel(**of._data) for of in offices] if len(offices) > 0 else []
+        [OfficeResponseModel(**of.to_dict()) for of in offices]
+        if len(offices) > 0
+        else []
     )
 
 
@@ -112,8 +114,10 @@ async def select_products(
     where: FilterRequestModel = None,
     db: IRepository = Depends(get_cabinet_repository),
 ) -> List[CabinetResponseModel]:
-    offices = db.get(limit=limit, offset=offset, document_id=document_id, where=where)
+    cabinets = db.get(limit=limit, offset=offset, document_id=document_id, where=where)
 
     return (
-        [CabinetResponseModel(**of._data) for of in offices] if len(offices) > 0 else []
+        [CabinetResponseModel(**cab.to_dict()) for cab in cabinets]
+        if len(cabinets) > 0
+        else []
     )
