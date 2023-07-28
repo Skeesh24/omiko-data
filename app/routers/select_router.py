@@ -56,7 +56,7 @@ async def select_products(
 
 
 @select_router.get("/order", response_model=List[OrderResponseModel])
-async def select_products(
+async def select_orders(
     limit: int = 5,
     offset: int = 0,
     document_id: str = "",
@@ -71,7 +71,7 @@ async def select_products(
 @select_router.get(
     "/product_category", response_model=List[ProductCategoryResponseModel]
 )
-async def select_products(
+async def select_product_categories(
     limit: int = 5,
     offset: int = 0,
     document_id: str = "",
@@ -90,7 +90,7 @@ async def select_products(
 
 
 @select_router.get("/office", response_model=List[OfficeResponseModel])
-async def select_products(
+async def select_offices(
     limit: int = 5,
     offset: int = 0,
     document_id: str = "",
@@ -107,7 +107,7 @@ async def select_products(
 
 
 @select_router.get("/cabinet", response_model=List[CabinetResponseModel])
-async def select_products(
+async def select_cabinets(
     limit: int = 5,
     offset: int = 0,
     document_id: str = "",
