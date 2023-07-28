@@ -1,4 +1,4 @@
-from app.database.entities import Order, Product, User
+from app.database.entities import Order, Product, Product_Category, User
 from app.models.repositories.repository import FirebaseRepository
 
 
@@ -10,6 +10,7 @@ def get_user_repository():
     finally:
         pass
 
+
 def get_product_repository():
     repo = FirebaseRepository[Product]()
 
@@ -17,6 +18,7 @@ def get_product_repository():
         return repo
     finally:
         pass
+
 
 def get_order_repository():
     repo = FirebaseRepository[Order]()
@@ -27,3 +29,10 @@ def get_order_repository():
         pass
 
 
+def get_product_category_repository():
+    repo = FirebaseRepository[Product_Category]()
+
+    try:
+        return repo
+    finally:
+        pass
