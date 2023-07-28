@@ -65,9 +65,9 @@ class FirebaseRepository(Generic[_T], IRepository):
         """
 
         try:
-            self.connect().add(element.to_dict(exclude_defaults=True))
-        except Exception:
-            raise HTTPException(status_code=400)
+            self.connect().add(element.dict(exclude_defaults=True))
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=str(e))
 
     def update(self, document_id: str, element: _T) -> None:  # TODO debug
         """
@@ -81,7 +81,7 @@ class FirebaseRepository(Generic[_T], IRepository):
 
         try:
             self.remove(document_id)
-            d: dict = element.to_dict(exclude_defaults=True)
+            d: dict = element.dict(exclude_defaults=True)
             d[fields.ID] = document_id
             self.connect().add(dict)
 
