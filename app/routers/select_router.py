@@ -6,6 +6,7 @@ from app.models.repositories.repository_interface import IRepository
 
 from app.models.validation import (
     FilterRequestModel,
+    OfficeResponseModel,
     OrderResponseModel,
     ProductCategoryResponseModel,
     ProductResponseModel,
@@ -14,6 +15,7 @@ from app.models.validation import (
 from fastapi.params import Depends
 
 from app.classes.dependencies import (
+    get_office_repository,
     get_order_repository,
     get_product_category_repository,
     get_product_repository,
@@ -84,4 +86,19 @@ async def select_products(
         [ProductCategoryResponseModel(**pc._data) for pc in categories]
         if len(categories) > 0
         else []
+    )
+
+
+@select_router.get("/office", response_model=List[OfficeResponseModel])
+async def select_products(
+    limit: int = 5,
+    offset: int = 0,
+    document_id: str = "",
+    where: FilterRequestModel = None,
+    db: IRepository = Depends(get_office_repository),
+) -> List[OfficeResponseModel]:
+    offices = db.get(limit=limit, offset=offset, document_id=document_id, where=where)
+
+    return (
+        [OfficeResponseModel(**of._data) for of in offices] if len(offices) > 0 else []
     )
