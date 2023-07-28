@@ -1,27 +1,24 @@
 from abc import abstractclassmethod, ABC
+from typing import Any
+
+from app.models.validation import FilterRequestModel
 
 
 class IRepository(ABC):
     @abstractclassmethod
-    def get_by_id(self, id: int):
+    def get(
+        self, limit: int, offset: int, document_id: str, where: FilterRequestModel
+    ) -> Any:
         pass
 
     @abstractclassmethod
-    def get_all(self):
+    def add(self, element) -> None:
         pass
 
     @abstractclassmethod
-    def add(self, element):
+    def update(self, document_id: str, element) -> None:
         pass
 
     @abstractclassmethod
-    def update(self, id: int, element):
-        pass
-
-    @abstractclassmethod
-    def remove_by_id(self, id: int):
-        pass
-
-    @abstractclassmethod
-    def remove(self, element):
+    def remove(self, document_id: str) -> None:
         pass
