@@ -37,7 +37,7 @@ async def select_users(
 ) -> list[UserResponseModel]:
     users = db.get(limit=limit, offset=offset, document_id=document_id, where=where)
 
-    return [ProductResponseModel(**u._data) for u in users] if len(users) > 0 else []
+    return [UserResponseModel(**u._data) for u in users] if len(users) > 0 else []
 
 
 @select_router.get("/product", response_model=List[ProductResponseModel])

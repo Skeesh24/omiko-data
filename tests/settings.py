@@ -9,3 +9,5 @@ class Settings:
     POST: str = "/insert"
     PUT: str = "/update"
     DELETE: str = "/delete"
+
+    
