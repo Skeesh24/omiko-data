@@ -31,17 +31,17 @@ async def select_users(
 ) -> list[UserResponseModel]:
     users = db.get(limit=limit, offset=offset, document_id=document_id, where=where)
 
-    return [UserResponseModel(**x.to_dict()) for x in users]
+    return [UserResponseModel(**u._data) for u in users]
 
 
-@select_router.get("/product", response_model=ProductResponseModel)
+@select_router.get("/product", response_model=List[ProductResponseModel])
 async def select_products(
     limit: int = 5,
     offset: int = 0,
     document_id: str = "",
     where: FilterRequestModel = None,
     db: IRepository = Depends(get_product_repository),
-) -> ProductResponseModel:
+) -> List[ProductResponseModel]:
     products = db.get(limit=limit, offset=offset, document_id=document_id, where=where)
 
-    return products
+    return [ProductResponseModel(**p._data) for p in products]
