@@ -13,11 +13,12 @@ import pytest
             },
             {"field_path": "name", "op_string": "==", "value": "test"},
         ),
-        ({"limit": 1, "offset": 2}, None),
+        ({"limit": 1, "offset": 1}, None),
         (
             {"limit": 0, "offset": 0},
             {"field_path": "name", "op_string": "==", "value": "test"},
         ),
+        ({"limit": 100, "offset": 0}, None),
     ],
 )
 def test_repo_select(params, json):
@@ -28,3 +29,4 @@ def test_repo_select(params, json):
     )
     assert response.status_code == codes.ok
     assert response.json() is not None
+    assert len(response.json()) > 0 or response.json() == []
