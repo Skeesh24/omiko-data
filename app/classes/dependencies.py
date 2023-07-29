@@ -1,4 +1,11 @@
-from app.database.entities import Cabinet, Office, Order, Product, Product_Category, User
+from app.database.entities import (
+    Cabinet,
+    Office,
+    Order,
+    Product,
+    ProductCategory,
+    User,
+)
 from app.models.repositories.repository import FirebaseRepository
 
 
@@ -30,7 +37,7 @@ def get_order_repository():
 
 
 def get_product_category_repository():
-    repo = FirebaseRepository[Product_Category]()
+    repo = FirebaseRepository[ProductCategory]()
 
     try:
         return repo
