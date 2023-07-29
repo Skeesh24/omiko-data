@@ -101,7 +101,7 @@ class FirebaseRepository(Generic[_T], IRepository):
 
         ### returns None or raises exception
         """
-        if (not document_id) and (not where):
+        if (document_id == "") and (not where):
             return
 
         query = self.connect()
@@ -118,4 +118,4 @@ class FirebaseRepository(Generic[_T], IRepository):
                 [query.document(key).delete() for key in keys]
                 return
         except Exception as e:
-            raise HTTPException(status_code=400, detail=str(e))
+            raise HTTPException(status_code=400)
