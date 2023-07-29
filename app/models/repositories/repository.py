@@ -1,14 +1,13 @@
 from typing import Generic, List, TypeVar
 from fireo.models import Model
-from fireo.database import Database
-from app.database.firebase import get_db
-from app.models.repositories.fields import fields
-from app.models.repositories.repository_interface import IRepository
 from fastapi.exceptions import HTTPException
-
 from google.cloud.firestore_v1.collection import CollectionReference
+from requests import codes
 
+from app.models.repositories.repository_interface import IRepository
+from app.models.repositories.fields import fields
 from app.models.validation import FilterRequestModel
+from app.database.firebase import get_db
 
 
 _T = TypeVar("_T", bound=Model)
@@ -54,7 +53,7 @@ class FirebaseRepository(Generic[_T], IRepository):
             else:
                 query = query.document(document_id=document_id)
         except:
-            raise HTTPException(status_code=400)
+            raise HTTPException(status_code=codes.BAD_REQUEST)
 
         return query.get()
 
@@ -71,7 +70,7 @@ class FirebaseRepository(Generic[_T], IRepository):
         try:
             query.add(element.dict(exclude_defaults=True))
         except Exception:
-            raise HTTPException(status_code=400)
+            raise HTTPException(status_code=codes.BAD_REQUEST)
 
     def update(self, document_id: str, element: _T) -> None:  # TODO debug
         """
@@ -90,32 +89,19 @@ class FirebaseRepository(Generic[_T], IRepository):
             self.connect().add(d)
 
         except Exception:
-            raise HTTPException(status_code=400)
+            raise HTTPException(status_code=codes.BAD_REQUEST)
 
-    def remove(self, document_id: str, where: FilterRequestModel) -> None:  # TODO debug
+    def remove(self, document_id: str) -> None:  # TODO debug
         """
         ## Removes document by the document's id
 
         1. param document_id: the id of the document from the generic collection
-        2. param where: the filter to remove the documents
 
         ### returns None or raises exception
         """
-        if (document_id == "") and (not where):
-            return
-
         query = self.connect()
 
-        try:
-            if document_id != "":
-                query.document(document_id).delete()
-                return
-            if where:
-                keys = [
-                    doc.id
-                    for doc in query.where(**where.dict(exclude_defaults=True)).get()
-                ]
-                [query.document(key).delete() for key in keys]
-                return
-        except Exception as e:
-            raise HTTPException(status_code=400)
+        if document_id != "":
+            query.document(document_id).delete()
+        else:
+            raise HTTPException(status_code=codes.BAD_REQUEST)
