@@ -20,5 +20,5 @@ class IRepository(ABC):
         pass
 
     @abstractclassmethod
-    def remove(self, document_id: str, where: FilterRequestModel) -> None:
+    def remove(self, document_id: str) -> None:
         pass
