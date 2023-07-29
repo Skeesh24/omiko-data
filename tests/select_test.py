@@ -21,7 +21,7 @@ DEFAULT_BODY_COMPARE_PARAMS: dict = {
             DEFAULT_QUERY_PARAMS,
             DEFAULT_BODY_COMPARE_PARAMS,
         ),
-        ("/product", Settings.DEFAULT_QUERY_PARAMS, None),
+        ("/product", DEFAULT_QUERY_PARAMS, None),
         ("/order", None, None),
         ("/product_category", None, None),
         ("/office", None, None),
