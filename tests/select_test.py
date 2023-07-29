@@ -5,8 +5,12 @@ from settings import Settings
 
 
 ROUTE = Settings.URL + Settings.GET
-DEFAULT_QUERY_PARAMS = {"limit": 1, "offset": 0}
-default_body_compare_param = {"field_path": "email", "op_string": "==", "value": "test"}
+DEFAULT_QUERY_PARAMS: dict = {"limit": 1, "offset": 0}
+DEFAULT_BODY_COMPARE_PARAMS: dict = {
+    "field_path": "email",
+    "op_string": "==",
+    "value": "test",
+}
 
 
 @pytest.mark.parametrize(
@@ -15,7 +19,7 @@ default_body_compare_param = {"field_path": "email", "op_string": "==", "value":
         (
             "/user",
             DEFAULT_QUERY_PARAMS,
-            default_body_compare_param,
+            DEFAULT_BODY_COMPARE_PARAMS,
         ),
         ("/product", DEFAULT_QUERY_PARAMS, None),
         ("/order", None, None),

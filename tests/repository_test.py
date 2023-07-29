@@ -4,26 +4,58 @@ import pytest
 
 
 @pytest.mark.parametrize(
-    "params, json",
+    "prefix, params, json",
     [
         (
+            "/product",
             {
                 "limit": 1,
                 "offset": 0,
             },
             {"field_path": "name", "op_string": "==", "value": "test"},
         ),
-        ({"limit": 1, "offset": 1}, None),
+        ("/product", {"limit": 1, "offset": 1}, None),
         (
+            "/product",
             {"limit": 0, "offset": 0},
             {"field_path": "name", "op_string": "==", "value": "test"},
         ),
-        ({"limit": 100, "offset": 0}, None),
+        ("/user", {"limit": 100, "offset": 0}, None),
+        (
+            "/user",
+            {
+                "limit": 1,
+                "offset": 0,
+            },
+            {"field_path": "name", "op_string": "==", "value": "test"},
+        ),
+        ("/user", {"limit": 1, "offset": 1}, None),
+        (
+            "/user",
+            {"limit": 0, "offset": 0},
+            {"field_path": "name", "op_string": "==", "value": "test"},
+        ),
+        ("/order", {"limit": 100, "offset": 0}, None),
+        (
+            "/order",
+            {
+                "limit": 1,
+                "offset": 0,
+            },
+            {"field_path": "name", "op_string": "==", "value": "test"},
+        ),
+        ("/order", {"limit": 1, "offset": 1}, None),
+        (
+            "/order",
+            {"limit": 0, "offset": 0},
+            {"field_path": "name", "op_string": "==", "value": "test"},
+        ),
+        ("/order", {"limit": 100, "offset": 0}, None),
     ],
 )
-def test_repo_select(params, json):
+def test_repo_select(prefix, params, json):
     response = get(
-        Settings.URL + Settings.GET + "/product",
+        Settings.URL + Settings.GET + prefix,
         params=params,
         json=json,
     )

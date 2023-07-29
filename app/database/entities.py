@@ -15,7 +15,7 @@ class Product(Model):
     price = NumberField()
 
 
-class Product_Category(Model):
+class ProductCategory(Model):
     name = TextField()
     product_count = NumberField()
 
