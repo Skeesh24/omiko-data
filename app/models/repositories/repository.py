@@ -6,6 +6,8 @@ from app.models.repositories.fields import fields
 from app.models.repositories.repository_interface import IRepository
 from fastapi.exceptions import HTTPException
 
+from google.cloud.firestore_v1.collection import CollectionReference
+
 from app.models.validation import FilterRequestModel
 
 
@@ -26,7 +28,7 @@ class FirebaseRepository(Generic[_T], IRepository):
     def __init__(self) -> None:
         self.db = get_db()
 
-    def connect(self):
+    def connect(self) -> CollectionReference:
         type = self.__orig_class__.__args__[0]
         return self.db.conn.collection(type.collection_name)
 
@@ -99,14 +101,21 @@ class FirebaseRepository(Generic[_T], IRepository):
 
         ### returns None or raises exception
         """
+        if (not document_id) and (not where):
+            return
+
         query = self.connect()
 
         try:
-            if where:
-                query.where(**where.dict(exclude_defaults=True))
             if document_id != "":
-                query = query.document(document_id)
-        except Exception:
-            raise HTTPException(status_code=400)
-
-        query.delete()
+                query.document(document_id).delete()
+                return
+            if where:
+                keys = [
+                    doc.id
+                    for doc in query.where(**where.dict(exclude_defaults=True)).get()
+                ]
+                [query.document(key).delete() for key in keys]
+                return
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=str(e))
