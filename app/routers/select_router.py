@@ -27,7 +27,7 @@ from app.classes.dependencies import (
 select_router = APIRouter(prefix="/select", tags=["select"])
 
 
-@select_router.get("/user", response_model=List[UserResponseModel])
+@select_router.post("/user", response_model=List[UserResponseModel])
 async def select_users(
     limit: int = 5,
     offset: int = 0,
@@ -40,7 +40,7 @@ async def select_users(
     return [UserResponseModel(**u._data) for u in users] if len(users) > 0 else []
 
 
-@select_router.get("/product", response_model=List[ProductResponseModel])
+@select_router.post("/product", response_model=List[ProductResponseModel])
 async def select_products(
     limit: int = 5,
     offset: int = 0,
@@ -55,7 +55,7 @@ async def select_products(
     )
 
 
-@select_router.get("/order", response_model=List[OrderResponseModel])
+@select_router.post("/order", response_model=List[OrderResponseModel])
 async def select_orders(
     limit: int = 5,
     offset: int = 0,
@@ -68,7 +68,7 @@ async def select_orders(
     return [OrderResponseModel(**o._data) for o in orders] if len(orders) > 0 else []
 
 
-@select_router.get(
+@select_router.post(
     "/product_category", response_model=List[ProductCategoryResponseModel]
 )
 async def select_product_categories(
@@ -89,7 +89,7 @@ async def select_product_categories(
     )
 
 
-@select_router.get("/office", response_model=List[OfficeResponseModel])
+@select_router.post("/office", response_model=List[OfficeResponseModel])
 async def select_offices(
     limit: int = 5,
     offset: int = 0,
@@ -106,7 +106,7 @@ async def select_offices(
     )
 
 
-@select_router.get("/cabinet", response_model=List[CabinetResponseModel])
+@select_router.post("/cabinet", response_model=List[CabinetResponseModel])
 async def select_cabinets(
     limit: int = 5,
     offset: int = 0,
