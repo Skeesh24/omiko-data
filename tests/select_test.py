@@ -1,3 +1,4 @@
+from httpx import AsyncClient
 import pytest
 from requests import get
 from requests.status_codes import codes
@@ -13,6 +14,7 @@ DEFAULT_BODY_COMPARE_PARAMS: dict = {
 }
 
 
+@pytest.mark.anyio
 @pytest.mark.parametrize(
     "prefix, query_params, json",
     [
@@ -28,11 +30,12 @@ DEFAULT_BODY_COMPARE_PARAMS: dict = {
         ("/cabinet", None, None),
     ],
 )
-def test_select_all_routes(prefix: str, query_params: str, json: str):
-    response = get(
-        ROUTE + prefix,
-        params=query_params,
-        json=json,
-    )
+async def test_select_all_routes(prefix: str, query_params: str, json: str):
+    async with AsyncClient() as ac:
+        response = await ac.post(
+            ROUTE + prefix,
+            params=query_params,
+            json=json,
+        )
     assert response.status_code == codes.ok
     assert response.json() is not None
