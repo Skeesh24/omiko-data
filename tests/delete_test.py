@@ -11,24 +11,24 @@ ROUTE = Settings.URL + Settings.DELETE
 @pytest.mark.parametrize(
     "prefix, params",
     [
-        # ("/user", None),
+        ("/user", {"document_id": "267U3f0pKDfnKWx4N0tq"}),
         (
             "/product",
             {"document_id": "pa9xFlcIXcyDvCA5onWE"},
         ),
-        # (
-        #     "/order",
-        #     None,
-        # ),
-        # (
-        #     "/product_category",
-        #     {"document_id": "U0Kg4CtDyNRTnLpfa08V"},
-        # ),
-        # (
-        #     "/office",
-        #     {},
-        # ),
-        # ("/cabinet", None),
+        (
+            "/order",
+            {"document_id": "BI6xTsN60lxZUcrW5FA9"},
+        ),
+        (
+            "/product_category",
+            {"document_id": "U0Kg4CtDyNRTnLpfa08V"},
+        ),
+        (
+            "/office",
+            {"document_id": "U0Kg4CtDyNRTnLpfa08V"},
+        ),
+        ("/cabinet", {"document_id": "HUQD0azry2g7e7WpHIrV"}),
     ],
 )
 async def test_delete(prefix, params):
