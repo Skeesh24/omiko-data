@@ -1,8 +1,10 @@
+from httpx import AsyncClient
 from requests import codes, get
 from settings import Settings
 import pytest
 
 
+@pytest.mark.anyio
 @pytest.mark.parametrize(
     "prefix, params, json",
     [
@@ -53,12 +55,13 @@ import pytest
         ("/order", {"limit": 100, "offset": 0}, None),
     ],
 )
-def test_repo_select(prefix, params, json):
-    response = get(
-        Settings.URL + Settings.GET + prefix,
-        params=params,
-        json=json,
-    )
+async def test_repo_select(prefix, params, json):
+    async with AsyncClient() as ac:
+        response = await ac.post(
+            url=Settings.URL + Settings.GET + prefix,
+            params=params,
+            json=json,
+        )
     assert response.status_code == codes.ok
     assert response.json() is not None
     assert len(response.json()) > 0 or response.json() == []
