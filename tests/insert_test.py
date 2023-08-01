@@ -1,3 +1,4 @@
+from httpx import AsyncClient
 from requests import post
 from requests.status_codes import codes
 from settings import Settings
@@ -7,6 +8,7 @@ import pytest
 ROUTE = Settings.URL + Settings.POST
 
 
+@pytest.mark.anyio
 @pytest.mark.parametrize(
     "prefix, dictionary",
     [
@@ -57,11 +59,9 @@ ROUTE = Settings.URL + Settings.POST
         ),
     ],
 )
-def test_insert_in_models(prefix, dictionary):
-    response = post(
-        ROUTE + prefix,
-        json=dictionary,
-    )
+async def test_insert_in_models(prefix, dictionary):
+    async with AsyncClient() as ac:
+        response = await ac.post(url=ROUTE + prefix, json=dictionary)
     assert response.status_code == codes.created
     assert response.json() is not None
     assert len(response.json()) >= 1

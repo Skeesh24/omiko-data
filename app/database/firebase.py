@@ -11,4 +11,4 @@ def get_db():
     try:
         return db
     finally:
-        db.conn.close()
+        pass

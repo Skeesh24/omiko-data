@@ -18,46 +18,15 @@ def get_user_repository():
         pass
 
 
-def get_product_repository():
-    repo = FirebaseRepository[Product]()
-
-    try:
-        return repo
-    finally:
-        pass
-
-
-def get_order_repository():
-    repo = FirebaseRepository[Order]()
-
-    try:
-        return repo
-    finally:
-        pass
+class UoW:
+    user = FirebaseRepository[User]()
+    product = FirebaseRepository[Product]()
+    order = FirebaseRepository[Order]()
+    product_category = FirebaseRepository[ProductCategory]()
+    office = FirebaseRepository[Office]()
+    cabinet = FirebaseRepository[Cabinet]()
+    ...
 
 
-def get_product_category_repository():
-    repo = FirebaseRepository[ProductCategory]()
-
-    try:
-        return repo
-    finally:
-        pass
-
-
-def get_office_repository():
-    repo = FirebaseRepository[Office]()
-
-    try:
-        return repo
-    finally:
-        pass
-
-
-def get_cabinet_repository():
-    repo = FirebaseRepository[Cabinet]()
-
-    try:
-        return repo
-    finally:
-        pass
+def get_uow():
+    return UoW()
