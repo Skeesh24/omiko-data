@@ -84,9 +84,10 @@ class FirebaseRepository(Generic[_T], IRepository):
 
         try:
             self.remove(document_id)
-            d: dict = element.dict(exclude_defaults=True)
-            d[fields.ID] = document_id
-            self.connect().add(d)
+            self.connect().add(
+                document_data=element.dict(exclude_defaults=True),
+                document_id=document_id,
+            )
 
         except Exception:
             raise HTTPException(status_code=codes.BAD_REQUEST)
