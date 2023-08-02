@@ -1,0 +1,37 @@
+name: omiko-data CI/CD
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  tests:
+    name: Test
+    runs-on: ubuntu-latest
+
+    # strategy:
+    #   matrix:
+    #     python-version:
+    # [3.11.x]
+    steps:  
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+            fetch-depth: 0
+            
+    #   - name: Use Python
+    #     uses: 
+
+  deploy: 
+    name: deploying
+    needs: [tests]
+    runs-on: ubuntu-latest
+
+    steps: 
+        - name: deploy to test server 
+          uses: johnbeynon/render-deploy-action@v0.0.8
+          with: 
+            api-key: ${{secrets.RENDER_API_KEY}}
+    
