@@ -1,0 +1,33 @@
+name: omiko-data CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: setup python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
+
+      - name: install requirements
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --requirements.txt
+
+      - name: run uvicorn server
+        run: python main.py & sleep 5
+
+      - name: run tests with pytest
+        run: pytest
+
+      - name: stop uvicorn server
+        run: pkill uvicorn
