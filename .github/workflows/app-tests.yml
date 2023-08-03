@@ -23,6 +23,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Set up environment variables
+        run: |
+          echo "CLIENT_EMAIL=${{ env.CLIENT_EMAIL }}" >> $GITHUB_ENV
+          echo "VAR_NAME=${{ env.CLIENT_ID }}" >> $GITHUB_ENV
+          echo "VAR_NAME=${{ env.CLIENT_X509_CERT_URL }}" >> $GITHUB_ENV
+          echo "VAR_NAME=${{ env.PRIVATE_KEY }}" >> $GITHUB_ENV
+          echo "VAR_NAME=${{ env.PRIVATE_KEY_ID }}" >> $GITHUB_ENV
+
       - name: run uvicorn server
         run: python main.py & sleep 5
 
