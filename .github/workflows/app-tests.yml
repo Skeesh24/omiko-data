@@ -49,6 +49,3 @@ jobs:
 
       - name: run tests with pytest
         run: pytest
-
-      - name: stop uvicorn server
-        run: pkill uvicorn
