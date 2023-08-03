@@ -32,6 +32,12 @@ jobs:
           echo "PRIVATE_KEY_ID=${{ env.PRIVATE_KEY_ID }}" >> $GITHUB_ENV
 
       - name: run uvicorn server
+        env:
+          CLIENT_EMAIL: ${{ env.CLIENT_EMAIL }}
+          CLIENT_ID: ${{ env.CLIENT_ID }}
+          CLIENT_X509_CERT_URL: ${{ env.CLIENT_X509_CERT_URL }}
+          PRIVATE_KEY: ${{ env.PRIVATE_KEY }}
+          PRIVATE_KEY_ID: ${{ env.PRIVATE_KEY_ID }}
         run: python main.py & sleep 5
 
       - name: run tests with pytest
