@@ -26,10 +26,10 @@ jobs:
       - name: Set up environment variables
         run: |
           echo "CLIENT_EMAIL=${{ env.CLIENT_EMAIL }}" >> $GITHUB_ENV
-          echo "VAR_NAME=${{ env.CLIENT_ID }}" >> $GITHUB_ENV
-          echo "VAR_NAME=${{ env.CLIENT_X509_CERT_URL }}" >> $GITHUB_ENV
-          echo "VAR_NAME=${{ env.PRIVATE_KEY }}" >> $GITHUB_ENV
-          echo "VAR_NAME=${{ env.PRIVATE_KEY_ID }}" >> $GITHUB_ENV
+          echo "CLIENT_ID=${{ env.CLIENT_ID }}" >> $GITHUB_ENV
+          echo "CLIENT_X509_CERT_URL=${{ env.CLIENT_X509_CERT_URL }}" >> $GITHUB_ENV
+          echo "PRIVATE_KEY=${{ env.PRIVATE_KEY }}" >> $GITHUB_ENV
+          echo "PRIVATE_KEY_ID=${{ env.PRIVATE_KEY_ID }}" >> $GITHUB_ENV
 
       - name: run uvicorn server
         run: python main.py & sleep 5
