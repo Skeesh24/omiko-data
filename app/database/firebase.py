@@ -4,7 +4,7 @@ from os import environ
 
 
 def certificate_modifing():
-    with open("c:/users/skeesh/desktop" + "/certificate.json", "w") as f:
+    with open(curdir + "/certificate.json", "w") as f:
         f.write(
             """
 {
