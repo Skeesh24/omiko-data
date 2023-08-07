@@ -1,10 +1,9 @@
+from typing import Union
 from fastapi import APIRouter
 from fastapi.params import Depends
 from requests import codes
 
-from app.classes.dependencies import (
-    get_uow,
-)
+from app.classes.dependencies import get_uow
 from app.models.repositories.repository_interface import IRepository
 from app.models.validation import (
     CabinetRequestModel,
@@ -23,12 +22,14 @@ put_router = APIRouter(prefix="/update", tags=["update"])
 async def update_product(
     tablename: str,
     document_id: str,
-    new_data: ProductRequestModel
-    | UserRequestModel
-    | OrderRequestModel
-    | ProductCategoryRequestModel
-    | CabinetRequestModel
-    | OfficeRequestModel,
+    new_data: Union[
+        ProductRequestModel,
+        UserRequestModel,
+        OrderRequestModel,
+        ProductCategoryRequestModel,
+        CabinetRequestModel,
+        OfficeRequestModel,
+    ],
     uow=Depends(get_uow),
 ) -> None:
     db: IRepository = uow.__getattribute__(tablename)
