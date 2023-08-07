@@ -28,8 +28,7 @@ select_router = APIRouter(prefix="/select", tags=["select"])
     | List[ProductResponseModel]
     | List[OrderResponseModel]
     | List[ProductCategoryResponseModel]
-    | List[CabinetResponseModel]
-    | List[OfficeResponseModel],
+    | List[CabinetResponseModel],
 )
 async def select_users(
     tablename: str,
