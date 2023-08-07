@@ -1,10 +1,9 @@
-from httpx import AsyncClient
+from httpx import Client
 from requests import codes, get
 from settings import Settings
 import pytest
 
 
-@pytest.mark.anyio
 @pytest.mark.parametrize(
     "prefix, params, json",
     [
@@ -55,9 +54,9 @@ import pytest
         ("/order", {"limit": 100, "offset": 0}, None),
     ],
 )
-async def test_repo_select(prefix, params, json):
-    async with AsyncClient() as ac:
-        response = await ac.post(
+def test_repo_select(prefix, params, json):
+    with Client() as ac:
+        response = ac.post(
             url=Settings.URL + Settings.GET + prefix,
             params=params,
             json=json,

@@ -1,4 +1,4 @@
-from httpx import AsyncClient
+from httpx import Client
 from requests import codes
 from settings import Settings
 import pytest
@@ -7,7 +7,6 @@ import pytest
 ROUTE = Settings.URL + Settings.DELETE
 
 
-@pytest.mark.anyio
 @pytest.mark.parametrize(
     "prefix, params",
     [
@@ -31,7 +30,7 @@ ROUTE = Settings.URL + Settings.DELETE
         ("/cabinet", {"document_id": "HUQD0azry2g7e7WpHIrV"}),
     ],
 )
-async def test_delete(prefix, params):
-    async with AsyncClient(base_url=ROUTE) as ac:
-        response = await ac.delete(prefix, params=params)
+def test_delete(prefix, params):
+    with Client(base_url=ROUTE) as c:
+        response = c.delete(prefix, params=params)
     assert response.status_code == codes.NO_CONTENT
