@@ -27,15 +27,13 @@ insert_router = APIRouter(prefix="/insert", tags=["insert"])
 @insert_router.post(
     "/{tablename}",
     status_code=codes.created,
-    response_model=List[
-        Union[
-            UserResponseModel,
-            ProductResponseModel,
-            OrderResponseModel,
-            ProductCategoryResponseModel,
-            OfficeResponseModel,
-            CabinetResponseModel,
-        ]
+    response_model=Union[
+        UserResponseModel,
+        ProductResponseModel,
+        OrderResponseModel,
+        ProductCategoryResponseModel,
+        CabinetResponseModel,
+        OfficeResponseModel,
     ],
 )
 async def insert(
