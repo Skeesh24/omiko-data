@@ -24,14 +24,16 @@ select_router = APIRouter(prefix="/select", tags=["select"])
 
 @select_router.post(
     "/{tablename}",
-    response_model=List[
-        UserResponseModel
-        | ProductResponseModel
-        | OrderResponseModel
-        | ProductCategoryResponseModel
-        | CabinetResponseModel
-        | OfficeResponseModel
-    ],
+    response_class={
+        200: List[
+            UserResponseModel
+            | ProductResponseModel
+            | OrderResponseModel
+            | ProductCategoryResponseModel
+            | OfficeResponseModel
+            | CabinetResponseModel
+        ]
+    },
 )
 async def select_users(
     tablename: str,
