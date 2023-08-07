@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 from fastapi import APIRouter
 from app.models.repositories.repository_interface import IRepository
 
@@ -24,16 +24,16 @@ select_router = APIRouter(prefix="/select", tags=["select"])
 
 @select_router.post(
     "/{tablename}",
-    response_class={
-        200: List[
-            UserResponseModel
-            | ProductResponseModel
-            | OrderResponseModel
-            | ProductCategoryResponseModel
-            | OfficeResponseModel
-            | CabinetResponseModel
+    response_model=List[
+        Union[
+            UserResponseModel,
+            ProductResponseModel,
+            OrderResponseModel,
+            ProductCategoryResponseModel,
+            CabinetResponseModel,
+            OfficeResponseModel,
         ]
-    },
+    ],
 )
 async def select_users(
     tablename: str,
