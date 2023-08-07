@@ -5,4 +5,4 @@ from uvicorn import run
 
 if __name__ == "__main__":
     db_initialize()
-    run(app, host="localhost", port=8000)
+    # run(app, host="localhost", port=8000)
