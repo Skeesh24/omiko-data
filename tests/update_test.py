@@ -1,10 +1,9 @@
-from httpx import AsyncClient
+from httpx import Client
 import pytest
 
 from settings import Settings
 
 
-@pytest.mark.anyio
 @pytest.mark.parametrize(
     "prefix, params, json",
     [
@@ -52,9 +51,9 @@ from settings import Settings
         ),
     ],
 )
-async def test_update_all_routes(prefix, params, json):
-    async with AsyncClient() as ac:
-        response = await ac.put(
+def test_update_all_routes(prefix, params, json):
+    with Client() as ac:
+        response = ac.put(
             url=Settings.URL + Settings.PUT + prefix, params=params, json=json
         )
 
