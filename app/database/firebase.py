@@ -1,12 +1,9 @@
 from fireo import connection as firebase_connection
 from os.path import curdir
-from os import environ
+from os import environ, remove
 
 
-def certificate_modifing():
-    with open(curdir + "/certificate.json", "w") as f:
-        f.write(
-            """
+cert = """
 {
     "type": "service_account",
     "project_id": "omiko-data",
@@ -20,20 +17,21 @@ def certificate_modifing():
     "client_x509_cert_url": "%s",
     "universe_domain": "googleapis.com"
 }
-            """
-            % (
-                environ.get("PRIVATE_KEY_ID"),
-                environ.get("PRIVATE_KEY"),
-                environ.get("CLIENT_EMAIL"),
-                environ.get("CLIENT_ID"),
-                environ.get("CLIENT_X509_CERT_URL"),
-            )
-        )
+""" % (
+    environ.get("PRIVATE_KEY_ID"),
+    environ.get("PRIVATE_KEY"),
+    environ.get("CLIENT_EMAIL"),
+    environ.get("CLIENT_ID"),
+    environ.get("CLIENT_X509_CERT_URL"),
+)
 
 
 def initialize():
-    certificate_modifing()
-    firebase_connection(from_file="certificate.json")
+    path = "certificate.json"
+    with open(f"{curdir}/{path}", "w") as file:
+        file.write(cert)
+    firebase_connection(from_file=path)
+    remove(path)
 
 
 def get_db():
