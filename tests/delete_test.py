@@ -58,7 +58,7 @@ def test_successful_delete(prefix, params):
         ("/cabinet", {"document_id": ""}),
     ],
 )
-def test_badrequest1_delete(prefix, params):
+def test_badrequest_delete(prefix, params):
     assert request(prefix, params).status_code == codes.BAD_REQUEST
 
 
@@ -85,5 +85,5 @@ def test_badrequest1_delete(prefix, params):
         ("/34ацуывПШГЛ", {"document_id": "HUQD0azry2g7e7WpHIrV"}),
     ],
 )
-def test_notfound_delete(prefix, params):
+def test_unprocessable_delete(prefix, params):
     assert request(prefix, params).status_code == codes.UNPROCESSABLE_ENTITY
