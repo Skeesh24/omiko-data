@@ -1,11 +1,13 @@
-from httpx import Client
-from requests import post
-from requests.status_codes import codes
+from httpx import Client, codes
 from settings import Settings
 import pytest
 
 
-ROUTE = Settings.URL + Settings.POST
+def request(url, content):
+    ROUTE = Settings.URL + Settings.POST
+
+    with Client() as ac:
+        return ac.post(url=ROUTE + url, json=content)
 
 
 @pytest.mark.parametrize(
@@ -58,9 +60,86 @@ ROUTE = Settings.URL + Settings.POST
         ),
     ],
 )
-def test_insert_in_models(prefix, dictionary):
-    with Client() as ac:
-        response = ac.post(url=ROUTE + prefix, json=dictionary)
-    assert response.status_code == codes.created
+def test_successful_insert(prefix, dictionary):
+    response = request(prefix, dictionary)
+    assert response.status_code == codes.CREATED
     assert response.json() is not None
     assert len(response.json()) >= 1
+
+
+@pytest.mark.parametrize(
+    "prefix, dictionary",
+    [
+        (
+            "/user",
+            {
+                "email": [],
+                "password": "AESRGEFfnpsiyhPYBEFncwpnsSUkm",
+            },
+        ),
+        (
+            "/product",
+            {
+                "ame": "",
+                "escription": "",
+                "hort_description": "",
+                "pric": 0,
+                "ategory": "",
+            },
+        ),
+        (
+            "/order",
+            {
+                "": "bratok2@gmail.com",
+                "": ["test"],
+                "": 24,
+            },
+        ),
+        ("/product_category", {"name": "", "product_count": ""}),
+        (
+            "/office",
+            {
+                "city": "",
+                "": "test",
+                "phone": "",
+                "": "test",
+            },
+        ),
+        (
+            "/cabinet",
+            {
+                "cart": [""],
+                "favourites": "",
+                "orders": ["test"],
+                "city": "",
+                "phone": "[]",
+            },
+        ),
+        (
+            "/usr",
+            {},
+        ),
+        (
+            "/rth54нукп",
+            {},
+        ),
+        (
+            "/4453",
+            {},
+        ),
+        ("/produccategory", {"name": "", "product_count": ""}),
+        (
+            "/4еупкви",
+            {},
+        ),
+        (
+            "/348OHS",
+            {
+                "phone": "[]",
+            },
+        ),
+    ],
+)
+def test_unprocessable1_insert(prefix, dictionary):
+    response = request(prefix, dictionary)
+    assert response.status_code == codes.UNPROCESSABLE_ENTITY
