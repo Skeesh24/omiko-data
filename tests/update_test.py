@@ -1,7 +1,14 @@
-from httpx import Client
+from httpx import Client, codes
 import pytest
 
 from settings import Settings
+
+
+def request(url, params, json):
+    ROUTE = Settings.URL + Settings.PUT
+
+    with Client() as ac:
+        return ac.put(url=ROUTE + url, params=params, json=json)
 
 
 @pytest.mark.parametrize(
@@ -51,10 +58,102 @@ from settings import Settings
         ),
     ],
 )
-def test_update_all_routes(prefix, params, json):
-    with Client() as ac:
-        response = ac.put(
-            url=Settings.URL + Settings.PUT + prefix, params=params, json=json
-        )
+def test_successful_update(prefix, params, json):
+    response = request(prefix, params, json)
 
-    assert response.status_code == 201
+    assert response.status_code == codes.CREATED
+
+
+@pytest.mark.parametrize(
+    "prefix, params, json",
+    [
+        (
+            "/usr",
+            {"document_id": "1FbLOpGcjFdYWYil9Oow"},
+            {"email": "bratok2@gmail.com", "password": "apple"},
+        ),
+        (
+            "/DVFHBJ",
+            {"document_id": ""},
+            {
+                "category": "",
+                "description": "",
+                "nae": "N",
+                "price": "",
+                "short_description": "SD",
+            },
+        ),
+        (
+            "/34PFIDV32",
+            {"documet_id": "6skiPrgAKrDDtcmBfnuT"},
+            {"prie": 240, "product": ["apple"], "user": "bratok2@gmail.com"},
+        ),
+        (
+            "/34",
+            {"document_id": ""},
+            {"name": "apple", "product_count": ""},
+        ),
+        (
+            "/ИВШАД",
+            {"document_id": 12},
+            {"address": "", "city": 21, "email": "", "phone": ""},
+        ),
+        (
+            "/04зпцох)*Н№р",
+            {"document_id": "[18hB8529EU0GcypXmQR4]"},
+            {
+                "cart": ["apple"],
+                "city": 3,
+                "favourites": [""],
+                "orders": [],
+                "phone": "",
+            },
+        ),
+        (
+            "/user",
+            {"document_id": ""},
+            {"emal": "bratok2@gmail.com", "password": "apple"},
+        ),
+        (
+            "/product",
+            {"document_id": ""},
+            {
+                "category": "",
+                "description": "",
+                "nae": "N",
+                "price": "",
+                "short_description": "SD",
+            },
+        ),
+        (
+            "/order",
+            {"documet_id": "6skiPrgAKrDDtcmBfnuT"},
+            {"prie": 240, "product": ["apple"], "user": "bratok2@gmail.com"},
+        ),
+        (
+            "/product_category",
+            {"document_id": ""},
+            {"name": "apple", "product_count": ""},
+        ),
+        (
+            "/office",
+            {"document_id": 12},
+            {"address": "", "ciy": 21, "email": "", "phone": 23},
+        ),
+        (
+            "/cabinet",
+            {"document_id": "[18hB8529EU0GcypXmQR4]"},
+            {
+                "cart": ["apple"],
+                "city": 3,
+                "favourites": [""],
+                "orders": "",
+                "phone": "",
+            },
+        ),
+    ],
+)
+def test_unprocessable_update(prefix, params, json):
+    response = request(prefix, params, json)
+
+    assert response.status_code == codes.UNPROCESSABLE_ENTITY
