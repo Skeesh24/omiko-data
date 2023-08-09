@@ -1,5 +1,6 @@
 from typing import List, Union
 from fastapi import APIRouter
+from app.classes.functions import try_get_repository
 from app.models.repositories.repository_interface import IRepository
 
 from app.models.validation import (
@@ -43,7 +44,7 @@ async def select_users(
     where: FilterRequestModel = None,
     uow=Depends(get_uow),
 ):
-    db: IRepository = uow.__getattribute__(tablename)
+    db: IRepository = try_get_repository(uow, tablename)
 
     elements = db.get(limit=limit, offset=offset, document_id=document_id, where=where)
 
