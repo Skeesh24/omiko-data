@@ -3,6 +3,7 @@ from fastapi import APIRouter
 from fastapi.params import Depends
 from requests.status_codes import codes
 from app.classes.dependencies import get_uow
+from app.classes.functions import try_get_repository
 
 from app.models.repositories.repository_interface import IRepository
 from app.models.validation import (
@@ -48,11 +49,6 @@ async def insert(
     ],
     uow=Depends(get_uow),
 ):
-    # new_user: UserRequestModel = type_validation_check(UserRequestModel, data)
-
-    # response: UserResponseModel = type_validation_check(UserResponseModel, data)
-    # TODO: to validate the request is neccessary
-
-    db: IRepository = uow.__getattribute__(tablename)
+    db: IRepository = try_get_repository(uow, tablename)
     db.add(data)
     return data
