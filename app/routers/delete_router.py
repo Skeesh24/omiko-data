@@ -4,6 +4,7 @@ from requests import codes
 from app.classes.dependencies import (
     get_uow,
 )
+from app.classes.functions import try_get_repository
 from app.models.repositories.repository_interface import IRepository
 
 
@@ -16,5 +17,5 @@ async def delete_user(
     document_id: str = "",
     uow=Depends(get_uow),
 ) -> None:
-    db: IRepository = uow.__getattribute__(tablename)
+    db: IRepository = try_get_repository(uow, tablename)
     db.remove(document_id=document_id)
