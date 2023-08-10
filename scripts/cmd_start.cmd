@@ -1,0 +1,1 @@
+uvicorn app.routers.root_router:app --reload
