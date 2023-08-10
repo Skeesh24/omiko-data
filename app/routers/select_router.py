@@ -25,7 +25,17 @@ select_router = APIRouter(prefix="/select", tags=["select"])
 
 @select_router.post(
     "/{tablename}",
-    response_model=List[
+    response_model=Union[
+        List[
+            Union[
+                UserResponseModel,
+                ProductResponseModel,
+                OrderResponseModel,
+                ProductCategoryResponseModel,
+                CabinetResponseModel,
+                OfficeResponseModel,
+            ]
+        ],
         Union[
             UserResponseModel,
             ProductResponseModel,
@@ -33,7 +43,7 @@ select_router = APIRouter(prefix="/select", tags=["select"])
             ProductCategoryResponseModel,
             CabinetResponseModel,
             OfficeResponseModel,
-        ]
+        ],
     ],
 )
 async def select_users(
@@ -48,4 +58,4 @@ async def select_users(
 
     elements = db.get(limit=limit, offset=offset, document_id=document_id, where=where)
 
-    return [e._data for e in elements] if is_list(elements) else elements._data
+    return [e._data for e in elements] if not document_id else elements._data
