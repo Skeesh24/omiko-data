@@ -15,6 +15,7 @@ class UserRequestModel(BaseModel):
 
 class UserResponseModel(BaseModel):
     email: str
+    password: str
 
 
 class ProductRequestModel(BaseModel):
