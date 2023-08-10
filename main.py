@@ -1,4 +1,4 @@
-from app.routers.root_route import app
+from app.routers.root_router import app
 from uvicorn import run
 
 
