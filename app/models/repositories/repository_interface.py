@@ -1,14 +1,24 @@
 from abc import abstractclassmethod, ABC
-from typing import Any
+from typing import Any, List, Union
 
 from app.models.validation import FilterRequestModel
 
 
 class IRepository(ABC):
+
+    """
+    ## This interface provides access to the repository abstraction
+
+    1. get - returns a document or list[document] by the given id
+    2. add - adds a document in the end of collecttion
+    3. update - updates a document by the given id
+    4. remove - removes a document by the given id
+    """
+
     @abstractclassmethod
     def get(
         self, limit: int, offset: int, document_id: str, where: FilterRequestModel
-    ) -> Any:
+    ) -> Union[List[Any], Any]:
         """
         ## Gets a document by id
 
