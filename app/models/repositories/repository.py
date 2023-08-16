@@ -1,4 +1,4 @@
-from typing import Generic, List, TypeVar
+from typing import Generic, List, TypeVar, Union
 from fireo.models import Model
 from fastapi.exceptions import HTTPException
 from google.cloud.firestore_v1.collection import CollectionReference
@@ -33,7 +33,7 @@ class FirebaseRepository(Generic[_T], IRepository):
 
     def get(
         self, limit: int, offset: int, document_id: str, where: FilterRequestModel
-    ) -> List[_T]:
+    ) -> Union[List[_T], _T]:
         """
         ## Gets a document by id
 
@@ -55,7 +55,13 @@ class FirebaseRepository(Generic[_T], IRepository):
         except:
             raise HTTPException(status_code=codes.BAD_REQUEST)
 
-        return query.get()
+        elements = query.get()
+
+        return (
+            [e._data for e in elements]
+            if not document_id or limit == 1
+            else elements._data
+        )
 
     def add(self, element: _T) -> None:
         """
