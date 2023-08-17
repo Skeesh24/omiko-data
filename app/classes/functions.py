@@ -1,12 +1,11 @@
-from fastapi import HTTPException
-from httpx import codes
+from fastapi import HTTPException, status
 
 
 def try_get_repository(uow, tablename):
     try:
         return uow.__getattribute__(tablename)
     except:
-        raise HTTPException(codes.UNPROCESSABLE_ENTITY, detail=tablename)
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, detail=tablename)
 
 
 def is_list(elements):
