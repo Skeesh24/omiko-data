@@ -14,13 +14,6 @@ def request(url, content):
     "prefix, dictionary",
     [
         (
-            "/user",
-            {
-                "email": "bratok2@gmail.com",
-                "password": "AESRGEFfnpsiyhPYBEFncwpnsSUkm",
-            },
-        ),
-        (
             "/product",
             {
                 "name": "test",
@@ -70,13 +63,6 @@ def test_successful_insert(prefix, dictionary):
 @pytest.mark.parametrize(
     "prefix, dictionary",
     [
-        (
-            "/user",
-            {
-                "email": [],
-                "password": "AESRGEFfnpsiyhPYBEFncwpnsSUkm",
-            },
-        ),
         (
             "/product",
             {

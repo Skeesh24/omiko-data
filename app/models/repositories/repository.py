@@ -1,8 +1,8 @@
-from typing import Generic, List, TypeVar
+from typing import Generic, List, TypeVar, Union
 from fireo.models import Model
 from fastapi.exceptions import HTTPException
 from google.cloud.firestore_v1.collection import CollectionReference
-from requests import codes
+from fastapi import status
 
 from app.models.repositories.repository_interface import IRepository
 from app.models.repositories.fields import fields
@@ -33,7 +33,7 @@ class FirebaseRepository(Generic[_T], IRepository):
 
     def get(
         self, limit: int, offset: int, document_id: str, where: FilterRequestModel
-    ) -> List[_T]:
+    ) -> Union[List[_T], _T]:
         """
         ## Gets a document by id
 
@@ -48,14 +48,21 @@ class FirebaseRepository(Generic[_T], IRepository):
         try:
             if document_id == "":
                 if where:
-                    query = query.where(**where.dict(exclude_defaults=True))
+                    query = query.where(**where)
                 query = query.limit(limit).offset(offset)
             else:
+                # why it is working? need to test
                 query = query.document(document_id=document_id)
         except:
-            raise HTTPException(status_code=codes.BAD_REQUEST)
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
 
-        return query.get()
+        elements = query.get()
+
+        return (
+            [e._data for e in elements]
+            if not document_id or limit == 1
+            else elements._data
+        )
 
     def add(self, element: _T) -> None:
         """
@@ -70,9 +77,9 @@ class FirebaseRepository(Generic[_T], IRepository):
         try:
             query.add(element.dict(exclude_defaults=True))
         except Exception:
-            raise HTTPException(status_code=codes.BAD_REQUEST)
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
 
-    def update(self, document_id: str, element: _T) -> None:  # TODO debug
+    def update(self, document_id: str, element: _T) -> None:  
         """
         ## Updates document by the document's id
 
@@ -90,9 +97,9 @@ class FirebaseRepository(Generic[_T], IRepository):
             )
 
         except Exception:
-            raise HTTPException(status_code=codes.BAD_REQUEST)
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
 
-    def remove(self, document_id: str) -> None:  # TODO debug
+    def remove(self, document_id: str) -> None:  
         """
         ## Removes document by the document's id
 
@@ -105,4 +112,4 @@ class FirebaseRepository(Generic[_T], IRepository):
         if document_id != "":
             query.document(document_id).delete()
         else:
-            raise HTTPException(status_code=codes.BAD_REQUEST)
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)

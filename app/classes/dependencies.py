@@ -19,7 +19,6 @@ def get_user_repository():
 
 
 class UoW:
-    user = FirebaseRepository[User]()
     product = FirebaseRepository[Product]()
     order = FirebaseRepository[Order]()
     product_category = FirebaseRepository[ProductCategory]()

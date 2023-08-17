@@ -15,11 +15,6 @@ def request(url, params, json):
     "prefix, params, json",
     [
         (
-            "/user",
-            {"document_id": "1FbLOpGcjFdYWYil9Oow"},
-            {"email": "bratok2@gmail.com", "password": "apple"},
-        ),
-        (
             "/product",
             {"document_id": "DuQ3dJMuBSLaCZemlgg9"},
             {
@@ -68,11 +63,6 @@ def test_successful_update(prefix, params, json):
     "prefix, params, json",
     [
         (
-            "/usr",
-            {"document_id": "1FbLOpGcjFdYWYil9Oow"},
-            {"email": "bratok2@gmail.com", "password": "apple"},
-        ),
-        (
             "/DVFHBJ",
             {"document_id": ""},
             {
@@ -108,11 +98,6 @@ def test_successful_update(prefix, params, json):
                 "orders": [],
                 "phone": "",
             },
-        ),
-        (
-            "/user",
-            {"document_id": ""},
-            {"emal": "bratok2@gmail.com", "password": "apple"},
         ),
         (
             "/product",

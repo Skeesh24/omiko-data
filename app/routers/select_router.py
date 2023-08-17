@@ -58,4 +58,4 @@ async def select_users(
 
     elements = db.get(limit=limit, offset=offset, document_id=document_id, where=where)
 
-    return [e._data for e in elements] if not document_id else elements._data
+    return elements
