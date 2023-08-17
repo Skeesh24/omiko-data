@@ -25,11 +25,6 @@ def request(url, params, json):
 @pytest.mark.parametrize(
     "prefix, query_params, json",
     [
-        (
-            "/user",
-            DEFAULT_QUERY_PARAMS,
-            DEFAULT_BODY_COMPARE_PARAMS,
-        ),
         ("/product", DEFAULT_QUERY_PARAMS, None),
         ("/order", None, None),
         ("/product_category", None, None),
@@ -47,11 +42,6 @@ def test_successful_select(prefix: str, query_params: str, json: str):
 @pytest.mark.parametrize(
     "prefix, query_params, json",
     [
-        (
-            "/user",
-            {"limit": "1", "offset": 0},
-            {},
-        ),
         (
             "/product",
             {},

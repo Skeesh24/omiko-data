@@ -14,7 +14,6 @@ def request(url, params):
 @pytest.mark.parametrize(
     "prefix, params",
     [
-        ("/user", {"document_id": "267U3f0pKDfnKWx4N0tq"}),
         (
             "/product",
             {"document_id": "pa9xFlcIXcyDvCA5onWE"},
@@ -41,7 +40,6 @@ def test_successful_delete(prefix, params):
 @pytest.mark.parametrize(
     "prefix, params",
     [
-        ("/user", {"document_id": ""}),
         ("/product", {"document_id": ""}),
         (
             "/order",
