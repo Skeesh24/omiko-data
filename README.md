@@ -3,6 +3,8 @@
 An API to provide access to the omiko's application data.
 Will be able to do fast migration to the any cloud / server DBMS.
 
+omiko-frontend is here: https://github.com/toqsukr/OmikoStoreWebApplicationFrontend
+
 # stack
 
     1. FastAPI - an async framework for creating APIs
