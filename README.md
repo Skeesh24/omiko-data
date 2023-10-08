@@ -1,18 +1,34 @@
-# omiko-data
+# Omiko Store Web Application - Data API
 
 An API to provide access to the omiko's application data.
 Will be able to do fast migration to the any cloud / server DBMS.
 
-omiko-frontend is here: https://github.com/toqsukr/OmikoStoreWebApplicationFrontend
 
-# stack
+## Features
 
-    1. FastAPI - an async framework for creating APIs
-    2. Firebase - cloud NoSQL document-oriented database
-    3. PostgreSQL - a very useful SQL database
-    4. FireO - a powerful lib for Firebase
-    5. Pytest - python's test framework
+- OAuth 2.0: Processes your application and provides you with a pair of tokens upon registration: an access token and a refresh token.
+- REST: The application's API provides a simple HTTP route that implements the REST specification.
+- Storage: Data is stored in the postgresql database, and Google's FireStore cloud storage was used in the debugging process.
+- Cache: Caching is represented by saving user data to reduce the number of database accesses.
+- Password Recovery: There is a way to restore your account through the recovery process implemented by the email sender.
+- Message broker: An API and an email sender have been connected via the message broker.
+- Proxy Gateway: There is an implementation of the API Gateway pattern that provides a persistent route for the user to access the various microservices.
+- Interface Segragation: Throughout the application you can easily replace modules, for example redis cache with Memcached, due to the use of dedicated interfaces and low cohesion of system components.
 
-# deployment
 
-API will be hosted to the render.com soon
+## Technologies Used
+
+- Python:3.11.5-bookworm
+- FastAPI
+- SQLAlchemy
+- JWT
+- Postgres
+- FireStore
+- Redis
+- Memcached
+- Docker
+  
+## Application Deployment
+
+The project was deployed as a Render.com blueprint:
+https://
