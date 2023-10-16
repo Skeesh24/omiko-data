@@ -4,10 +4,10 @@ from fastapi.exceptions import HTTPException
 from google.cloud.firestore_v1.collection import CollectionReference
 from fastapi import status
 
-from app.models.repositories.repository_interface import IRepository
-from app.models.repositories.fields import fields
-from app.models.validation import FilterRequestModel
-from app.database.firebase import get_db
+from classes.interfaces import IRepository
+from database.firestore.fields import fields
+from classes.validation import FilterRequestModel
+from database.firestore.firebase import get_db
 
 
 _T = TypeVar("_T", bound=Model)
