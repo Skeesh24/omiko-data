@@ -1,12 +1,9 @@
+from classes.dependencies import get_uow
+from classes.functions import try_get_repository
+from classes.interfaces import IRepository
 from fastapi import APIRouter
 from fastapi.params import Depends
 from requests import codes
-from app.classes.dependencies import (
-    get_uow,
-)
-from app.classes.functions import try_get_repository
-from app.models.repositories.repository_interface import IRepository
-
 
 delete_router = APIRouter(prefix="/delete", tags=["delete"])
 
