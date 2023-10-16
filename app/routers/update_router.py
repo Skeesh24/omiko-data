@@ -1,31 +1,27 @@
 from typing import Union
-from fastapi import APIRouter
-from fastapi.params import Depends
-from requests import codes
 
-from app.classes.dependencies import get_uow
-from app.classes.functions import try_get_repository
-from app.models.repositories.repository_interface import IRepository
-from app.models.validation import (
+from classes.dependencies import get_uow
+from classes.functions import try_get_repository
+from classes.interfaces import IRepository
+from classes.validation import (
     CabinetRequestModel,
     OfficeRequestModel,
     OrderRequestModel,
     ProductCategoryRequestModel,
     ProductRequestModel,
-    UserRequestModel,
 )
-
+from fastapi import APIRouter, status
+from fastapi.params import Depends
 
 put_router = APIRouter(prefix="/update", tags=["update"])
 
 
-@put_router.put("/{tablename}", status_code=codes.created)
+@put_router.put("/{tablename}", status_code=status.HTTP_201_CREATED)
 async def update_product(
     tablename: str,
-    document_id: str,
+    id: str,
     new_data: Union[
         ProductRequestModel,
-        UserRequestModel,
         OrderRequestModel,
         ProductCategoryRequestModel,
         CabinetRequestModel,
@@ -34,4 +30,4 @@ async def update_product(
     uow=Depends(get_uow),
 ) -> None:
     db: IRepository = try_get_repository(uow, tablename)
-    db.update(document_id=document_id, element=new_data)
+    db.update(id=id, update_elem=new_data)
