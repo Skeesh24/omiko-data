@@ -1,7 +1,7 @@
-from abc import abstractclassmethod, ABC
+from abc import ABC, abstractclassmethod
 from typing import Any, List, Union
 
-from app.models.validation import FilterRequestModel
+from classes.validation import FilterRequestModel
 
 
 class IRepository(ABC):
@@ -16,9 +16,7 @@ class IRepository(ABC):
     """
 
     @abstractclassmethod
-    def get(
-        self, limit: int, offset: int, document_id: str, where: FilterRequestModel
-    ) -> Union[List[Any], Any]:
+    def get(self, limit: int, offset: int, **kwargs) -> Union[List[Any], Any]:
         """
         ## Gets a document by id
 
@@ -36,30 +34,30 @@ class IRepository(ABC):
         """
         ## Adds a document in the generic collection
 
-        1. param element: the document to add
+        1. param element: the element to add
 
         ### returns None or raises exception
         """
         pass
 
     @abstractclassmethod
-    def update(self, document_id: str, element) -> None:
+    def update(self, id: str, element) -> None:
         """
-        ## Updates document by the document's id
+        ## Updates document by the elements's id
 
-        1. param document_id: the id of the document from the generic collection
-        2. param element: the source document for the update
+        1. param id: the id of the element from the generic collection
+        2. param element: the element to update
 
         ### returns None or raises exception
         """
         pass
 
     @abstractclassmethod
-    def remove(self, document_id: str) -> None:
+    def remove(self, id: str) -> None:
         """
-        ## Removes document by the document's id
+        ## Removes document by the element's id
 
-        1. param document_id: the id of the document from the generic collection
+        1. param id: the id of the element from the generic collection
 
         ### returns None or raises exception
         """

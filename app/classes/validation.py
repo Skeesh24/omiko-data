@@ -1,21 +1,12 @@
-from pydantic import BaseModel
 from typing import Any, List
+
+from pydantic import BaseModel
 
 
 class FilterRequestModel(BaseModel):
     field_path: str
     op_string: str
     value: Any
-
-
-class UserRequestModel(BaseModel):
-    email: str
-    password: str
-
-
-class UserResponseModel(BaseModel):
-    email: str
-    password: str
 
 
 class ProductRequestModel(BaseModel):
@@ -27,6 +18,7 @@ class ProductRequestModel(BaseModel):
 
 
 class ProductResponseModel(BaseModel):
+    id: str
     name: str
     price: float
     category: str
@@ -39,6 +31,7 @@ class OrderRequestModel(BaseModel):
 
 
 class OrderResponseModel(BaseModel):
+    id: str
     user: str
     products: List[str]
     price: float
@@ -50,6 +43,7 @@ class ProductCategoryRequestModel(BaseModel):
 
 
 class ProductCategoryResponseModel(BaseModel):
+    id: str
     name: str
     product_count: int
 
@@ -62,6 +56,7 @@ class OfficeRequestModel(BaseModel):
 
 
 class OfficeResponseModel(BaseModel):
+    id: str
     city: str
     address: str
     phone: str
@@ -77,6 +72,7 @@ class CabinetRequestModel(BaseModel):
 
 
 class CabinetResponseModel(BaseModel):
+    id: str
     cart: List[str]
     favourites: List[str]
     orders: List[str]

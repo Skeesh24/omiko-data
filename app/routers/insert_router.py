@@ -1,35 +1,30 @@
 from typing import List, Union
-from fastapi import APIRouter
-from fastapi.params import Depends
-from requests.status_codes import codes
-from app.classes.dependencies import get_uow
-from app.classes.functions import try_get_repository
 
-from app.models.repositories.repository_interface import IRepository
-from app.models.validation import (
+from classes.dependencies import get_uow
+from classes.functions import try_get_repository
+from classes.interfaces import IRepository
+from classes.validation import (
     CabinetRequestModel,
     CabinetResponseModel,
     OfficeRequestModel,
     OfficeResponseModel,
-    ProductCategoryRequestModel,
-    ProductCategoryResponseModel,
-    UserRequestModel,
-    UserResponseModel,
-    ProductRequestModel,
-    ProductResponseModel,
     OrderRequestModel,
     OrderResponseModel,
+    ProductCategoryRequestModel,
+    ProductCategoryResponseModel,
+    ProductRequestModel,
+    ProductResponseModel,
 )
-
+from fastapi import APIRouter, status
+from fastapi.params import Depends
 
 insert_router = APIRouter(prefix="/insert", tags=["insert"])
 
 
 @insert_router.post(
     "/{tablename}",
-    status_code=codes.created,
+    status_code=status.HTTP_201_CREATED,
     response_model=Union[
-        UserResponseModel,
         ProductResponseModel,
         OrderResponseModel,
         ProductCategoryResponseModel,
@@ -40,7 +35,6 @@ insert_router = APIRouter(prefix="/insert", tags=["insert"])
 async def insert(
     tablename: str,
     data: Union[
-        UserRequestModel,
         ProductRequestModel,
         OrderRequestModel,
         ProductCategoryRequestModel,

@@ -1,24 +1,18 @@
 from typing import List, Union
-from fastapi import APIRouter
-from app.classes.functions import is_list, try_get_repository
-from app.models.repositories.repository_interface import IRepository
 
-from app.models.validation import (
+from classes.dependencies import get_uow
+from classes.functions import is_list, try_get_repository
+from classes.interfaces import IRepository
+from classes.validation import (
     CabinetResponseModel,
     FilterRequestModel,
     OfficeResponseModel,
     OrderResponseModel,
     ProductCategoryResponseModel,
     ProductResponseModel,
-    UserResponseModel,
-    FilterRequestModel,
 )
+from fastapi import APIRouter
 from fastapi.params import Depends
-
-from app.classes.dependencies import (
-    get_uow,
-)
-
 
 select_router = APIRouter(prefix="/select", tags=["select"])
 
@@ -28,7 +22,6 @@ select_router = APIRouter(prefix="/select", tags=["select"])
     response_model=Union[
         List[
             Union[
-                UserResponseModel,
                 ProductResponseModel,
                 OrderResponseModel,
                 ProductCategoryResponseModel,
@@ -37,7 +30,6 @@ select_router = APIRouter(prefix="/select", tags=["select"])
             ]
         ],
         Union[
-            UserResponseModel,
             ProductResponseModel,
             OrderResponseModel,
             ProductCategoryResponseModel,

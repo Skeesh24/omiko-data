@@ -1,6 +1,6 @@
+import pytest
 from httpx import Client, codes
 from settings import Settings
-import pytest
 
 
 def request(url, content):
@@ -16,6 +16,7 @@ def request(url, content):
         (
             "/product",
             {
+                "id": "",
                 "name": "test",
                 "description": "test",
                 "short_description": "test",
@@ -26,6 +27,7 @@ def request(url, content):
         (
             "/order",
             {
+                "id": "",
                 "user": "bratok2@gmail.com",
                 "products": ["test"],
                 "price": 24,
@@ -35,6 +37,7 @@ def request(url, content):
         (
             "/office",
             {
+                "id": "",
                 "city": "test",
                 "address": "test",
                 "phone": "test",
@@ -43,7 +46,8 @@ def request(url, content):
         ),
         (
             "/cabinet",
-            {
+            {   
+                "id": "",
                 "cart": ["test"],
                 "favourites": ["test"],
                 "orders": ["test"],

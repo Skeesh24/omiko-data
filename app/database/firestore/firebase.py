@@ -1,7 +1,7 @@
-from fireo import connection as firebase_connection
-from os.path import curdir
 from os import environ, remove
+from os.path import curdir
 
+from fireo import connection as firebase_connection
 
 cert = """
 {
@@ -41,3 +41,7 @@ def get_db():
         return db
     finally:
         pass
+
+
+# db init
+initialize()
